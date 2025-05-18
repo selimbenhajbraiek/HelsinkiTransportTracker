@@ -5,6 +5,7 @@ let stationMarkers = {};
 let routeLines = {};
 let refreshInterval;
 
+
 // Vehicle and station icons
 const vehicleIcons = {
     BUS: L.divIcon({
@@ -121,7 +122,7 @@ function updateVehicles(vehicles) {
 
         if (vehicleMarkers[vehicleId]) {
             // Update existing marker
-            vehicleMarkers[vehicleId].setLatLng([vehicle.position.lat, vehicle.position.lng]);
+            vehicleMarkers[vehicleId].setLatLng([vehicle.position.latitude, vehicle.position.longitude]);
             
             // Update popup content
             const popup = createVehiclePopup(vehicle);
@@ -134,7 +135,7 @@ function updateVehicles(vehicles) {
         } else {
             // Create new marker
             const icon = vehicleIcons[vehicle.mode] || vehicleIcons.BUS;
-            const marker = L.marker([vehicle.position.lat, vehicle.position.lng], {
+            const marker = L.marker([vehicle.position.latitude, vehicle.position.longitude], {
                 icon: icon,
                 rotationAngle: vehicle.heading || 0
             });
@@ -202,7 +203,7 @@ function showStations() {
         .then(stations => {
             stations.forEach(station => {
                 if (!stationMarkers[station.id]) {
-                    const marker = L.marker([station.position.lat, station.position.lng], {
+                    const marker = L.marker([station.position.latitude, station.position.longitude], {
                         icon: stationIcon
                     });
                     
@@ -253,7 +254,7 @@ function showRoute(routeId) {
                     fetch(`/api/station/${stopId}`).then(res => res.json())
                 ))
                 .then(stops => {
-                    const coordinates = stops.map(stop => [stop.position.lat, stop.position.lng]);
+                    const coordinates = stops.map(stop => [stop.position.latitude, stop.position.longitude]);
                     
                     // Draw the route line
                     const color = route.color ? `#${route.color}` : getVehicleColor(route.mode);

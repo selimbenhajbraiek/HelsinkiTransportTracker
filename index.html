@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transport Peak Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Transport Trends</h1>
+
+    <canvas id="hourlyChart" width="600" height="300"></canvas>
+    <canvas id="stationChart" width="600" height="300"></canvas>
+
+    <script>
+        async function fetchAndPlot() {
+            const hourlyData = await fetch('/api/stats/hourly').then(res => res.json());
+            const stationData = await fetch('/api/stats/by_station').then(res => res.json());
+
+            const hours = hourlyData.map(x => new Date(x.hour).toLocaleString());
+            const counts = hourlyData.map(x => x.count);
+
+            const stationLabels = stationData.map(x => x.station);
+            const stationCounts = stationData.map(x => x.count);
+
+            new Chart(document.getElementById('hourlyChart'), {
+                type: 'line',
+                data: {
+                    labels: hours,
+                    datasets: [{
+                        label: 'Transports per Hour',
+                        data: counts,
+                        fill: false,
+                        borderWidth: 2
+                    }]
+                }
+            });
+
+            new Chart(document.getElementById('stationChart'), {
+                type: 'bar',
+                data: {
+                    labels: stationLabels,
+                    datasets: [{
+                        label: 'Transports per Station',
+                        data: stationCounts,
+                        borderWidth: 1
+                    }]
+                }
+            });
+        }
+
+        fetchAndPlot();
+    </script>
+</body>
+</html>
