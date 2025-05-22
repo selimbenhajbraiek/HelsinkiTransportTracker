@@ -10,7 +10,7 @@ This dashboard shows:
 ---
 #### 1. Clone the Repository
 
-git clone [https://github.com/selimbenhajbraiek/HelsinkiTransportTracker.git]
+git clone https://github.com/selimbenhajbraiek/HelsinkiTransportTracker.git
 cd HelsinkiTransportTracker
 
 # Create PostgreSQL Database and Tables:
