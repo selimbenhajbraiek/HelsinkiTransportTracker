@@ -10,8 +10,8 @@ This dashboard shows:
 ---
 #### 1. Clone the Repository
 
-git clone https://github.com/your-username/transport-dashboard.git
-cd transport-dashboard
+git clone [https://github.com/selimbenhajbraiek/HelsinkiTransportTracker.git]
+cd HelsinkiTransportTracker
 
 # Create PostgreSQL Database and Tables:
 -- Table: stations
